@@ -1,16 +1,16 @@
 // services/TrainLocationService.js
 const TrainLocationRepository = require('../repositories/TrainLocationRepository');
-const TrainStationId = require('../domain/value-objects/TrainStationId');
+const Coordinates = require('../domain/value-objects/Coordinates');
 
 class TrainLocationService {
-  static async addLocation(trainId, stationId) {
-    // Validate stationId using the TrainStationId value object
-    const validatedStationId = new TrainStationId(stationId);
+  static async addLocation(trainId, { latitude, longitude }) {
+    // Encapsulate the coordinates logic in the Coordinates value object
+    const coordinates = new Coordinates(latitude, longitude);
 
     // Create and save the train location using the repository
     const newLocation = {
       trainId,
-      stationId: validatedStationId.stationId,
+      coordinates,
       timestamp: new Date(),
     };
     return await TrainLocationRepository.save(newLocation);

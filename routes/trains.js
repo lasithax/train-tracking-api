@@ -6,8 +6,8 @@ const TrainLocationService = require('../services/TrainLocationService');
 // POST /api/trains/location - Add a new train location
 router.post('/location', async (req, res) => {
   try {
-    const { trainId, stationId } = req.body;
-    const location = await TrainLocationService.addLocation(trainId, stationId);
+    const { trainId, latitude, longitude } = req.body;
+    const location = await TrainLocationService.addLocation(trainId, { latitude, longitude });
     res.status(201).json(location);
   } catch (err) {
     console.error(err);
